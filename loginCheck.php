@@ -28,7 +28,7 @@
 		echo "<br />";			
 		echo "Welcome " .$_POST["user"]. "<br />";
 		echo "<br />";	
-		echo "<a href=\"main.html\">Click here</a> to view menu. <br />";
+		echo "<a href=\"main.php\">Click here</a> to view menu. <br />";
 		echo "<a href=\"logout.php\">Click here</a> to logout. <br />";
 	}
 ?>
