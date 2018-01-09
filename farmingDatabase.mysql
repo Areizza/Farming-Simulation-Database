@@ -1,0 +1,296 @@
+/*TABLE CREATION*/
+CREATE TABLE PlayerCharacter
+(
+PlayerName varchar(20) Primary Key NOT NULL,
+PlayerGender varchar(1),
+Energy int,
+Equipped varchar(20),
+LocationName_ varchar(20),
+ObjectName_ varchar(50),
+SkillType_ varchar(20),
+AnimalName_ varchar(20),
+NPCName_ varchar(20),
+EventName_ varchar(20)
+);
+
+CREATE TABLE Skills
+(
+SkillType varchar(20) Primary Key,
+Proficiency int,
+EXP int
+);
+
+CREATE TABLE Farming
+(
+SkillType_ varchar(20) Primary Key,
+FarmingType varchar(20)
+);
+
+CREATE TABLE Foraging
+(
+SkillType_ varchar(20) Primary Key,
+ForagingType varchar(20)
+);
+
+CREATE TABLE Location
+(
+LocationName varchar(20) Primary Key NOT NULL,
+Size int
+);
+
+CREATE TABLE Address
+(
+Address_ varchar(50) Primary Key,
+Number int NOT NULL,
+Street varchar(20) NOT NULL
+);
+
+CREATE TABLE Event_
+(
+EventName varchar(20) Primary Key NOT NULL,
+LocationName_ varchar(20)
+);
+
+CREATE TABLE Rewards
+(
+Amount int,
+EventName varchar(20),
+ObjectName1_ varchar(50)
+);
+
+CREATE TABLE NPC
+(
+NPCName varchar(20) Primary Key NOT NULL,
+NPCGender varchar(1),
+LocationName_ varchar(20),
+EventName_ varchar(20),
+ObjectName_ varchar(50)
+);
+
+CREATE TABLE Schedule_
+(
+NPCName_ varchar(20) Primary Key,
+Dialogue varchar(150)
+);
+
+CREATE TABLE Time_
+(
+Date_ date Primary Key NOT NULL,
+Weather varchar(20),
+Season varchar(20)
+);
+
+CREATE TABLE Object
+(
+ObjectName varchar(50) Primary Key NOT NULL,
+Quantity int,
+Quality int,
+ResultingObjectName varchar(50)
+);
+
+CREATE TABLE Food
+(
+ObjectName_ varchar(50) Primary Key NOT NULL,
+Materials varchar(50),
+Reaction int
+);
+
+CREATE TABLE Crops
+(
+ObjectName_ varchar(50) Primary Key NOT NULL,
+GrowingSeason varchar(20),
+CropPrice int,
+GrowingTime int
+);
+
+CREATE TABLE AnimalProduct
+(
+ObjectName_ varchar(50) Primary Key NOT NULL
+);
+
+CREATE TABLE Animal
+(
+AnimalSpecies varchar(10) Primary Key NOT NULL,
+AnimalQuality int,
+AnimalPrice int
+);
+
+CREATE TABLE AnimalOwned
+(
+AnimalName varchar(20) Primary Key NOT NULL,
+AnimalSpecies_ varchar(10)
+);
+
+/*ALTER STATEMENTS*/
+ALTER TABLE Location
+ADD Address_ varchar(50);
+ALTER TABLE AnimalProduct
+ADD AnimalSpecies1_ varchar(10);
+ALTER TABLE Event_
+ADD Date1_ date;
+ALTER TABLE Crops
+ADD SkillType_ varchar(20);
+ALTER TABLE Animal
+ADD LocationName_ varchar(20);
+
+/*INSERT PLAYER INFO*/
+INSERT INTO PlayerCharacter(PlayerName, PlayerGender, Energy, Equipped)
+VALUES ("Aldag", "O", 100, NULL);
+
+/*INSERT PLAYER SKILLS*/
+INSERT INTO Skills(SkillType, Proficiency, EXP)
+VALUES ("Farming", 1, 20);
+INSERT INTO Skills(SkillType, Proficiency, EXP)
+VALUES ("Foraging", 2, 50);
+INSERT INTO Farming(SkillType_, FarmingType)
+VALUES ("Farming", "Coopmaster");
+INSERT INTO Foraging(SkillType_, ForagingType)
+VALUES ("Foraging", "Wild");
+
+/*INSERT LOCATIONS*/
+INSERT INTO Location(LocationName, Size)
+VALUES ("Home", 25);
+INSERT INTO Address(Address_, Number, Street)
+VALUES ("123 Cheesewheel Drive", 123, "Cheesewheel Drive");
+
+/*INSERT EVENT*/
+INSERT INTO Event_(EventName)
+VALUES ("Christmas");
+INSERT INTO Rewards(Amount)
+VALUES (10);
+
+/*INSERT ANIMALS*/
+INSERT INTO Animal(AnimalSpecies, AnimalQuality, AnimalPrice)
+VALUES ("Pig", 100, 16000);
+INSERT INTO Animal(AnimalSpecies, AnimalQuality, AnimalPrice)
+VALUES ("Cow", 80, 1500);
+INSERT INTO Animal(AnimalSpecies, AnimalQuality, AnimalPrice)
+VALUES ("Chicken", 10, 800);
+INSERT INTO AnimalOwned(AnimalName, AnimalSpecies_)
+VALUES ("Petunia", "Pig");
+INSERT INTO AnimalOwned(AnimalName, AnimalSpecies_)
+VALUES ("Sylvia", "Cow");
+INSERT INTO AnimalOwned(AnimalName, AnimalSpecies_)
+VALUES ("Bokbok", "Chicken");
+INSERT INTO AnimalOwned(AnimalName, AnimalSpecies_)
+VALUES ("Snickers", "Chicken");
+
+/*INSERT NPCS*/
+INSERT INTO NPC (NPCName, NPCGender)
+VALUES ("George", "m");
+INSERT INTO NPC (NPCName, NPCGender)
+VALUES ("Oliver", "m");
+INSERT INTO NPC (NPCName, NPCGender)
+VALUES ("Arthur", "m");
+INSERT INTO NPC (NPCName, NPCGender)
+VALUES ("Hannah", "f");
+INSERT INTO NPC (NPCName, NPCGender)
+VALUES ("Melissa", "f");
+INSERT INTO NPC (NPCName, NPCGender)
+VALUES ("Alex", "f");
+INSERT INTO NPC (NPCName, NPCGender)
+VALUES ("Sam", "o");
+
+/*DELETE STATEMENTS*/
+DELETE FROM NPC WHERE NPCName = "Hannah";
+DELETE FROM NPC WHERE NPCName = "Oliver";
+DELETE FROM NPC WHERE NPCName = "Arthur";
+
+/*CROP INSERTION*/
+INSERT INTO Crops (ObjectName_, GrowingSeason, CropPrice, GrowingTime)
+VALUES ("Corn","Fall", 50, 14);
+INSERT INTO Crops (ObjectName_, GrowingSeason, CropPrice, GrowingTime)
+VALUES ("Kale","Spring", 40, 6);
+INSERT INTO Crops (ObjectName_, GrowingSeason, CropPrice, GrowingTime)
+VALUES ("Strawberries","Spring", 120, 8);
+INSERT INTO Crops (ObjectName_, GrowingSeason, CropPrice, GrowingTime)
+VALUES ("Pumpkin","Fall", 320, 13);
+INSERT INTO Crops (ObjectName_, GrowingSeason, CropPrice, GrowingTime)
+VALUES ("Blueberries","Summer", 240, 13);
+INSERT INTO Crops (ObjectName_, GrowingSeason, CropPrice, GrowingTime)
+VALUES ("Tomato","Summer", 60, 11);
+
+/*FOOD INSERTION*/
+INSERT INTO Food (ObjectName_, Materials, Reaction)
+VALUES ("Pumpkin Pie", "Pumpkin", 100);
+INSERT INTO Food (ObjectName_, Materials, Reaction)
+VALUES ("Grilled Salmon", "Salmon", 90);
+
+/*OBJECT INSERTION*/
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Corn", 99, 0, "Popcorn");
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Kale", 99, 0, NULL);
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Strawberries", 99, 2, NULL);
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Pumpkin", 99, 3, NULL);
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Blueberries", 99, 2, "Blueberry Jam");
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Tomato", 99, 1, NULL);
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Pumpkin Pie", 99, 0, NULL);
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Grilled Salmon", 99, 0, NULL);
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Milk", 3, 60, "Cheese");
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Bacon", 5, 90, NULL);
+INSERT INTO Object (ObjectName, Quantity, Quality, ResultingObjectName)
+VALUES ("Egg", 8, 40, "Omelette");
+INSERT INTO AnimalProduct(ObjectName_, AnimalSpecies1_)
+VALUES ("Milk", "Cow");
+INSERT INTO AnimalProduct(ObjectName_, AnimalSpecies1_)
+VALUES ("Bacon", "Pig");
+INSERT INTO AnimalProduct(ObjectName_, AnimalSpecies1_)
+VALUES ("Egg", "Chicken");
+
+
+/*SELECT QUERIES*/
+
+/*SHOW PLAYER CHARACTER INFORMATION*/
+SELECT *
+FROM PlayerCharacter;
+
+/*SHOW FARMING SKILLS*/
+SELECT SkillType, FarmingType, Proficiency, EXP
+FROM Skills, Farming
+WHERE SkillType = SkillType_;
+
+/*SHOW FORAGING SKILLS*/
+SELECT SkillType, ForagingType, Proficiency, EXP
+FROM Skills, Foraging
+WHERE SkillType = SkillType_;
+
+/*LIST ANIMALS IN DESCENDING ORDER BASED ON QUALITY*/
+SELECT AnimalName, AnimalSpecies, AnimalQuality, AnimalPrice
+FROM Animal, AnimalOwned
+WHERE AnimalSpecies = AnimalSpecies_
+ORDER BY AnimalQuality DESC;
+
+/*SHOW THE CHICKENS OWNED*/
+SELECT AnimalName, AnimalSpecies, AnimalQuality, AnimalPrice
+FROM Animal, AnimalOwned
+WHERE AnimalSpecies = AnimalSpecies_
+HAVING AnimalSpecies = "Chicken";
+
+/*SHOW OBJECTS CREATED BY ANIMAL SPECIES*/
+SELECT AnimalSpecies1_, ObjectName_, Quantity
+FROM AnimalProduct, Object
+WHERE ObjectName_ = ObjectName
+GROUP BY AnimalSpecies1_;
+
+/*COUNT HOW MANY CROPS THERE ARE*/
+SELECT COUNT(*)
+FROM Crops;
+
+/*SHOW ALL OBJECTS THAT HAVE PUMPKIN IN NAME*/
+SELECT ObjectName
+FROM Object
+WHERE ObjectName LIKE '%Pumpkin%';
+
+/*JOIN CROPS AND OBJECT*/
+SELECT ObjectName, GrowingSeason, CropPrice, GrowingTime, Quantity
+FROM Crops JOIN Object ON ObjectName = ObjectName_
+ORDER BY GrowingSeason;
